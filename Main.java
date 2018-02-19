@@ -1,24 +1,44 @@
 package com.company;
-/*1. Простой калькулятор с арифметическими операциями +​(сложение),
--​(вычитание), /​(деление), *​(умножение), ^​(возведение в степень), %
-(проценты от числа). Пример: 25%10 означает 25 процентов от числа 10.
+
+import java.io.*;
+
+public class Main{
+
+
+    private static final String PATHIN = "D:/Petr/Calc/Tmp/input_1.txt";
+  // private static final String PATHOUT = "D:/Petr/Calc/Tmp/output_1.txt";
+    //private static InOutOfFile outputRow;*/
+    public static void main(String[] args) throws IOException{
+
+        try {
+            File file = new File(PATHIN);
+            FileReader fr = new FileReader(file);
+            BufferedReader reader = new BufferedReader(fr);
+            String line = reader.readLine();
+            System.out.println(line);
+
+           /* while (line != null) {
+                System.out.println(line);
+                // считываем остальные строки в цикле
+
+
+                line = reader.readLine();
+            }*/
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+       /* inputRow = new InOutOfFile(PATHIN);
+        outputRow = new InOutOfFile(PATHOUT);
+        inputRow.read();
+        outputRow.write("ghbdtn");
+
+        //System.out.println(inputRow);
 
 */
 
-import com.company.SimpleCalc;
-public class Main {
-
-    public static void main(String[] args) {
-
-        float a, b, c;
-        SimpleCalc d = new SimpleCalc();
-        a=1;
-        b=2;
-        int e;
-        e=1;
-        c=d.add(a,b);
-        System.out.printf("e"+c);
-        
-
     }
-}
+
+
+ }
