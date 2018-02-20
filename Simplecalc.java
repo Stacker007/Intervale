@@ -33,7 +33,7 @@ public class Simplecalc {
                             a *= b;
                             break;
                         case '%':
-                            a %= b;
+                            a = a*b/100;
                             break;
                         case '^':
                             a = Math.pow(a, b);
