@@ -8,54 +8,85 @@ package com.company;
 
 
 public class RPN {
+    private String strInput;
+    RPN (String strInput){
+        this.strInput=strInput;
+    }
 
-    private static String opn(String strInput) throws Exception{
-        StringBuilder rpnSt = new StringBuilder(""); //
-        StringBuilder sbOut = new StringBuilder("");
-        char symbol, cTmp;
+    public String rpn() throws Exception{
+        StringBuilder operatorStk = new StringBuilder(""); //
+        StringBuilder operatorOut = new StringBuilder("");
+        char charIn, cTmp;
 
         for (int i = 0; i < strInput.length(); i++) {
-            symbol = strInput.charAt(i);
-            if (isOp(symbol)) {
-                while (rpnSt.length() > 0) {
-                    cTmp = rpnSt.substring(rpnSt.length()-1).charAt(0);
-                    if (isOp(cTmp) && (opPrior(cIn) <= opPrior(cTmp))) {
-                        sbOut.append(" ").append(cTmp).append(" ");
-                        rpnSt.setLength(rpnSt.length()-1);
+            charIn = strInput.charAt(i);
+            if (operator(charIn)) {   //Если символ - оператор
+                while (operatorStk.length() > 0) { //если стек не пуст
+
+                    // tmp принимает значение последнего элемента стека операторов
+                    cTmp = operatorStk.substring(operatorStk.length()-1).charAt(0);
+                    if (operator(cTmp) && (operatorPriority(charIn) <= operatorPriority(cTmp))) {
+                        operatorOut.append(" ").append(cTmp).append(" ");
+
+                        operatorStk.setLength(operatorStk.length()-1);
                     } else {
-                        sbOut.append(" ");
+                        operatorOut.append(" ");
                         break;
                     }
                 }
-                sbOut.append(" ");
-                rpnSt.append(cIn);
-            } else if ('(' == cIn) {
-                rpnSt.append(cIn);
-            } else if (')' == cIn) {
-                cTmp = rpnSt.substring(rpnSt.length()-1).charAt(0);
+                operatorOut.append(" ");
+                operatorStk.append(charIn);
+            } else if ('(' == charIn) {
+                operatorStk.append(charIn);
+            } else if (')' == charIn) {
+                cTmp = operatorStk.substring(operatorStk.length()-1).charAt(0);
                 while ('(' != cTmp) {
-                    if (rpnSt.length() < 1) {
-                        throw new Exception("Ошибка разбора скобок. Проверьте правильность выражения.");
+                    if (operatorStk.length() < 1) {
+                        throw new Exception("Закрывающая скобка без открывающей!");
                     }
-                    sbOut.append(" ").append(cTmp);
-                    rpnSt.setLength(rpnSt.length()-1);
-                    cTmp = rpnSt.substring(rpnSt.length()-1).charAt(0);
+                    operatorOut.append(" ").append(cTmp);
+                    operatorStk.setLength(operatorStk.length()-1);
+                    cTmp = operatorStk.substring(operatorStk.length()-1).charAt(0);
                 }
-                rpnSt.setLength(rpnSt.length()-1);
+                operatorStk.setLength(operatorStk.length()-1);
             } else {
                 // Если символ не оператор - добавляем в выходную последовательность
-                sbOut.append(cIn);
+                operatorOut.append(charIn);
             }
         }
 
         // Если в стеке остались операторы, добавляем их в входную строку
-        while (rpnSt.length() > 0) {
-            sbOut.append(" ").append(rpnSt.substring(rpnSt.length()-1));
-            rpnSt.setLength(rpnSt.length()-1);
+        while (operatorStk.length() > 0) {
+            operatorOut.append(" ").append(operatorStk.substring(operatorStk.length()-1));
+            operatorStk.setLength(operatorStk.length()-1);
         }
 
-        return  sbOut.toString();
+        return  operatorOut.toString();
     }
+    private static boolean operator (char op) {
+        switch (op) {
+            case '-':
+            case '+':
+            case '*':
+            case '/':
+            case '^':
+            case '%':
 
+                return true;
+        }
+        return false;
+    }
+    private static byte operatorPriority(char op) {
+        switch (op) {
+            case '^':
+                return 3;
+            case '*':
+            case '/':
+            case '%': //процент от числа одного приоритета с * и /
+
+                return 2;
+        }
+        return 1;
+    }
 
 }
