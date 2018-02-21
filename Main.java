@@ -23,15 +23,33 @@ public class Main{
 
             try {
                 lineRPN = lineRpn.rpn(); //Приводим строку к виду обратной нотации
-                Simplecalc result = new Simplecalc(lineRPN);
-                dResult=result.calculate();
+                System.out.print(lineRPN);
+                System.out.print("::"+line);
+                Simplecalc simpCalc = new Simplecalc(lineRPN);
+                dResult = simpCalc.calculate(); //передаем строку методу из класса Simlecalculate
+
+                System.out.println("="+dResult);
+
 
             } catch (Exception e){
                 System.out.println(e.getMessage());
             }
+                try {
 
-            System.out.print(lineRPN);
-                System.out.println("::"+line+"="+dResult);
+                    System.out.print(lineRPN);
+                    System.out.print("::"+line);
+                    Calc newCalc = new Calc(lineRPN);
+                    dResult = newCalc.calculate(); //передаем строку методу из класса Simlecalculate
+
+                    System.out.println("="+dResult);
+
+
+                } catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
+
+
+
 
 
                 line = reader.readLine();
@@ -42,6 +60,9 @@ public class Main{
             e.printStackTrace();
         }
 
+
+
     }
+
 
 }
