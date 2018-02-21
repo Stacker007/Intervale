@@ -5,7 +5,10 @@ import java.util.Deque;
 import java.util.StringTokenizer;
 
 class Calc extends Simplecalc {
-    Calc (String st){
+
+
+
+    Calc(String st){
         strInput = st;
     }
 
