@@ -7,8 +7,7 @@ import java.util.StringTokenizer;
 class Calc extends Simplecalc {
 
 
-
-    Calc(String st){
+    Calc(String st) {
         strInput = st;
     }
 
@@ -17,7 +16,7 @@ class Calc extends Simplecalc {
 
         Deque<Double> stack = new ArrayDeque<Double>();
         StringTokenizer st = new StringTokenizer(strInput);
-        while (st.hasMoreTokens()){
+        while (st.hasMoreTokens()) {
             justCalc(st, stack, a, b);
         }
         return stack.pop();
