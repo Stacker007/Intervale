@@ -36,6 +36,7 @@ public class RPN {
                 }
                 operatorOut.append(" ");
                 operatorStk.append(charIn);
+
             } else if ('(' == charIn) {
                 operatorStk.append(charIn);
             } else if (')' == charIn) {
@@ -63,7 +64,7 @@ public class RPN {
 
         return  operatorOut.toString();
     }
-    private static boolean operator (char op) {
+    public static boolean operator (char op) {
         switch (op) {
             case '-':
             case '+':
