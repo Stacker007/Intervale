@@ -9,11 +9,12 @@ package com.company;
 
 public class RPN {
     private String strInput;
-    RPN (String strInput){
-        this.strInput=strInput;
+
+    RPN(String strInput) {
+        this.strInput = strInput;
     }
 
-    public String rpn() throws Exception{
+    public String rpn() throws Exception {
         StringBuilder operatorStk = new StringBuilder(""); //
         StringBuilder operatorOut = new StringBuilder("");
         char charIn, cTmp;
@@ -24,11 +25,11 @@ public class RPN {
                 while (operatorStk.length() > 0) { //если стек не пуст
 
                     // tmp принимает значение последнего элемента стека операторов
-                    cTmp = operatorStk.substring(operatorStk.length()-1).charAt(0);
+                    cTmp = operatorStk.substring(operatorStk.length() - 1).charAt(0);
                     if (operator(cTmp) && (operatorPriority(charIn) <= operatorPriority(cTmp))) {
                         operatorOut.append(" ").append(cTmp).append(" ");
 
-                        operatorStk.setLength(operatorStk.length()-1);
+                        operatorStk.setLength(operatorStk.length() - 1);
                     } else {
                         operatorOut.append(" ");
                         break;
@@ -40,16 +41,16 @@ public class RPN {
             } else if ('(' == charIn) {
                 operatorStk.append(charIn);
             } else if (')' == charIn) {
-                cTmp = operatorStk.substring(operatorStk.length()-1).charAt(0);
+                cTmp = operatorStk.substring(operatorStk.length() - 1).charAt(0);
                 while ('(' != cTmp) {
                     if (operatorStk.length() < 1) {
                         throw new Exception("Закрывающая скобка без открывающей!");
                     }
                     operatorOut.append(" ").append(cTmp);
-                    operatorStk.setLength(operatorStk.length()-1);
-                    cTmp = operatorStk.substring(operatorStk.length()-1).charAt(0);
+                    operatorStk.setLength(operatorStk.length() - 1);
+                    cTmp = operatorStk.substring(operatorStk.length() - 1).charAt(0);
                 }
-                operatorStk.setLength(operatorStk.length()-1);
+                operatorStk.setLength(operatorStk.length() - 1);
             } else {
                 // Если символ не оператор - добавляем в выходную последовательность
                 operatorOut.append(charIn);
@@ -58,13 +59,14 @@ public class RPN {
 
         // Если в стеке остались операторы, добавляем их в входную строку
         while (operatorStk.length() > 0) {
-            operatorOut.append(" ").append(operatorStk.substring(operatorStk.length()-1));
-            operatorStk.setLength(operatorStk.length()-1);
+            operatorOut.append(" ").append(operatorStk.substring(operatorStk.length() - 1));
+            operatorStk.setLength(operatorStk.length() - 1);
         }
 
-        return  operatorOut.toString();
+        return operatorOut.toString();
     }
-    public static boolean operator (char op) {
+
+    public static boolean operator(char op) {
         switch (op) {
             case '-':
             case '+':
@@ -77,6 +79,7 @@ public class RPN {
         }
         return false;
     }
+
     private static byte operatorPriority(char op) {
         switch (op) {
             case '^':
